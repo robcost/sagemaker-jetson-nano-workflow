@@ -1,4 +1,4 @@
-# jetson-nano-ml-workflow
+# sagemaker-jetson-nano-ml-workflow
 
 This repo includes a set of scripts that are needed to setup a workflow for managing Machine Learning models in AWS SageMaker, and running them on a Jetson Nano SBC device.
 
