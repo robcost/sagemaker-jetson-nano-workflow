@@ -1,3 +1,4 @@
+#!/bin/bash
 
 # sourced from https://www.tensorflow.org/install/docker
 

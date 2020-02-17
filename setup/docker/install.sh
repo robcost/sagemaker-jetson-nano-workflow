@@ -1,3 +1,4 @@
+#!/bin/bash
 
 # Uninstall previous versions
 sudo apt-get remove docker docker-engine docker.io containerd runc
@@ -41,6 +42,7 @@ curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
 curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
 
 sudo apt-get update && sudo apt-get install -y nvidia-container-toolkit
+sudo cp ./daemon.json /etc/docker/
 sudo systemctl restart docker
 
 
