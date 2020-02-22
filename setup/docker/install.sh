@@ -27,7 +27,7 @@ sudo add-apt-repository "deb [arch=arm64] https://download.docker.com/linux/ubun
 sudo apt-get update
 
 # Install the latest version of Docker CE and containerd
-sudo apt-get install docker-ce docker-ce-cli containerd.io
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose
 
 # Add user to the group "docker", so we don't need sudo
 sudo usermod -aG docker rob
@@ -47,5 +47,14 @@ sudo apt-get update && sudo apt-get install -y nvidia-container-toolkit
 sudo cp ./daemon.json /etc/docker/
 sudo systemctl restart docker
 
+# now need to login to Nvidia docker repo, but need some extra steps as docker login doesn't work properly
+# per https://github.com/docker/docker-credential-helpers/issues/105
 
+sudo apt-get remove golang-docker-credential-helpers
+
+# make sure to register with https://ngc.nvidia.com/ and generate an API key from the setup menu
+# enter creds for Nvidio cloud when prompted
+# username is $oauthtoken, and API key is the password.
+docker login nvcr.io
+sudo apt-get install docker-compose
 
