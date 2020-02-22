@@ -20,15 +20,15 @@ Below is the gear I used, however you may not want/need all these items, and som
 Once you have your Jetson Nano and an AWS account ready to go we'll work our way through the following:
 
 - Setting up the Jetson Nano, including:
--- Booting from the USB drive instead of the MicroSD card
--- Setting up swap space to give the Jetson more working memory to work with
--- Cloning this repo to run setup scripts from
+    - Booting from the USB drive instead of the MicroSD card
+    - Setting up swap space to give the Jetson more working memory to work with
+    - Cloning this repo to run setup scripts from
 
 - Setting up Amazon SageMaker to:
--- Perform annotation of your images using SageMaker Ground Truth
--- Cloning this repo to run Notebooks
--- Perform image annotation cleanup tasks
--- Train custom models in MXNet, TensorFlow, and PyTorch
+    - Perform annotation of your images using SageMaker Ground Truth
+    - Cloning this repo to run Notebooks
+    - Perform image annotation cleanup tasks
+    - Train custom models in MXNet, TensorFlow, and PyTorch
 
 - Setup AWS IoT Greengrass to deploy the custom ML models for inference on the Jetson Nano
 
