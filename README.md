@@ -17,6 +17,8 @@ Below is the gear I used, however you may not want/need all these items, and som
 ---
 ## Workflow Overview
 
+![Workflow](/images/workflow.png)
+
 Once you have your Jetson Nano and an AWS account ready to go we'll work our way through the following:
 
 - Setting up the Jetson Nano, including:
