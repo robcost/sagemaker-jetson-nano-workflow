@@ -12,14 +12,15 @@ ap.add_argument("-m", "--manifest_uri", required=True, help="S3 path to the mani
 ap.add_argument("-p", "--new_manifest_prefix", required=True, help="s3 prefix of the new manifests")
 ap.add_argument("-d", "--working_directory", required=False, help="the root directory to store video and frames",
                 default=".")
+ap.add_argument("-c", "--class_name", required=True, help="Class assigned to image")
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
-def transform_annotations(manifest_line, transformation, s3_bucket):
-    box_annotations = manifest_line['potatohead']['annotations']
-    image_size = manifest_line['potatohead']['image_size'][0]
+def transform_annotations(manifest_line, transformation, s3_bucket, class_name):
+    box_annotations = manifest_line[class_name]['annotations']
+    image_size = manifest_line[class_name]['image_size'][0]
     s3_uri = manifest_line["source-ref"]
     fname = s3_uri.split("/")[-1]
 
@@ -43,7 +44,7 @@ def transform_annotations(manifest_line, transformation, s3_bucket):
         bbs, new_image_size = cw_bb(box_annotations, image_size)
 
     new_manifest_line["source-ref"] = "s3://{}/{}/{}".format(s3_bucket, prefix, transformed_fname)
-    new_manifest_line['potatohead'] = {
+    new_manifest_line[class_name] = {
         'annotations': bbs,
         'image_size': [new_image_size]
     }
@@ -120,6 +121,7 @@ def cw_bb(box_annotations, image_size):
 def main():
     args = vars(ap.parse_args())
     manifest_s3_uri = args["manifest_uri"]
+    class_name = args["class_name"]
 
     o = urlparse(manifest_s3_uri)
     s3_bucket = o.netloc
@@ -140,10 +142,10 @@ def main():
     ccw_rotate_manifest = []
     cw_rotate_manifest = []
     for line in manifest_lines:
-        x_flip_manifest.append(transform_annotations(line, Transform.X_FLIP, s3_bucket))
-        y_flip_manifest.append(transform_annotations(line, Transform.Y_FLIP, s3_bucket))
-        ccw_rotate_manifest.append(transform_annotations(line, Transform.CCW_ROTATE, s3_bucket))
-        cw_rotate_manifest.append(transform_annotations(line, Transform.CW_ROTATE, s3_bucket))
+        x_flip_manifest.append(transform_annotations(line, Transform.X_FLIP, s3_bucket, class_name))
+        y_flip_manifest.append(transform_annotations(line, Transform.Y_FLIP, s3_bucket, class_name))
+        ccw_rotate_manifest.append(transform_annotations(line, Transform.CCW_ROTATE, s3_bucket, class_name))
+        cw_rotate_manifest.append(transform_annotations(line, Transform.CW_ROTATE, s3_bucket, class_name))
 
     x_flip_manifest_name = os.path.join(working_directory, 'x-flipped.json')
     n = utils.write_manifest_file(x_flip_manifest, x_flip_manifest_name)
