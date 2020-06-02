@@ -22,10 +22,17 @@ sudo cp /usr/local/mxnet/libmxnet.so /usr/local/cuda/lib64/
 
 
 # pytorch install
-
 #from here https://devtalk.nvidia.com/default/topic/1049071/jetson-nano/pytorch-for-jetson-nano/
 
-wget https://nvidia.box.com/shared/static/ncgzus5o23uck9i5oth2n8n06k340l6k.whl -O torch-1.4.0-cp36-cp36m-linux_aarch64.whl
+wget https://nvidia.box.com/shared/static/3ibazbiwtkl181n95n9em3wtrca7tdzp.whl -O torch-1.5.0-cp36-cp36m-linux_aarch64.whl
 sudo apt-get install python3-pip libopenblas-base
 pip3 install Cython
 pip3 install numpy torch-1.4.0-cp36-cp36m-linux_aarch64.whl
+
+# try the demo notebook
+curl https://raw.githubusercontent.com/pytorch/vision/temp-tutorial/tutorials/torchvision_finetuning_instance_segmentation.ipynb -o torchvision_finetuning_instance_segmentation.ipynb
+
+jupyter lab
+
+# check CUDA version
+nvcc --version
